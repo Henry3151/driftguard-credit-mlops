@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.png binary
+# Relatórios gerados não contam nas estatísticas de linguagem do GitHub
+reports/** linguist-generated=true

@@ -1,0 +1,5 @@
+-r requirements.txt
+hypothesis==6.170.8
+pytest==9.1.1
+ruff==0.17.2
+pre-commit>=3.7

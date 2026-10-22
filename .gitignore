@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+
+# Dados (nunca versionar dados reais — LGPD e licença do dataset)
+data/*
+!data/README.md
+
+# Artefatos de execução (reproduzíveis com `make all`)
+models/
+mlruns/
+mlartifacts/
+mlflow.db
+logs/
+reports/metrics/*.prom
+
+# Segredos
+.env
+*.key
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

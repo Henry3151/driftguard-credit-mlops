@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "driftguard"
+version = "1.0.0"
+description = "Camada de sustentação e confiabilidade para modelos de Credit Scoring: contratos de dados, detecção de drift, observabilidade e governança (LGPD)."
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = { text = "MIT" }
+authors = [{ name = "Henry3151" }]
+dependencies = [
+  "pandas>=2.2,<3",
+  "numpy>=1.26,<2.5",
+  "scikit-learn>=1.5",
+  "xgboost>=2.1",
+  "pandera>=0.20",
+  "evidently>=0.7,<0.8",
+  "mlflow>=2.16",
+  "prometheus-client>=0.20",
+  "plotly>=5.20,<6",
+  "river>=0.21",
+  "scipy>=1.11",
+  "pyarrow>=15",
+  "pyyaml>=6",
+  "psutil>=5.9",
+  "tabulate>=0.9",
+  "joblib>=1.3",
+  "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+extras = ["nannyml>=0.12", "opentelemetry-sdk>=1.25", "opentelemetry-exporter-otlp-proto-http>=1.25"]
+dev = ["pytest>=8", "hypothesis>=6.100", "ruff>=0.5", "pre-commit>=3.7"]
+
+[project.scripts]
+driftguard = "driftguard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = ["e2e: teste ponta a ponta com dados sintéticos (mais lento)"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning", "ignore::UserWarning"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["E501", "B905", "SIM108"]
