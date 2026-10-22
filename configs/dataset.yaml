@@ -1,0 +1,59 @@
+# Mapeamento do dataset bruto (Home Credit Default Risk — application_train.csv)
+# para o schema canônico consumido pelo restante do pipeline.
+# Trocar de dataset = editar apenas este arquivo (+ limites no contrato).
+name: home-credit-default-risk
+source_file: data/raw/application_train.csv
+source_url: https://www.kaggle.com/competitions/home-credit-default-risk/data
+
+columns:
+  SK_ID_CURR: customer_id
+  TARGET: target
+  DAYS_BIRTH: age_years            # convertido: -dias / 365.25
+  AMT_INCOME_TOTAL: income
+  AMT_CREDIT: credit_amount
+  AMT_ANNUITY: annuity
+  AMT_GOODS_PRICE: goods_price
+  DAYS_EMPLOYED: employment_years  # convertido: -dias / 365.25 (sentinela tratada abaixo)
+  EXT_SOURCE_2: ext_source_2
+  EXT_SOURCE_3: ext_source_3
+  CNT_CHILDREN: children_count
+  REGION_RATING_CLIENT: region_rating
+  NAME_CONTRACT_TYPE: contract_type
+  NAME_INCOME_TYPE: income_type
+  NAME_EDUCATION_TYPE: education
+  FLAG_OWN_REALTY: own_realty
+  CODE_GENDER: gender              # sensível -> só auditoria de vieses
+  NAME_FAMILY_STATUS: family_status  # sensível -> só auditoria de vieses
+
+transforms:
+  days_to_years: [age_years, employment_years]
+  # Valor documentado pelo provedor: 365243 = cliente sem vínculo empregatício
+  # (aposentados/desempregados). Não é erro: é mapeado explicitamente para
+  # employment_years = 0 e has_employment = 0 (sem imputação silenciosa).
+  employment_sentinel: 365243
+
+identifier: customer_id
+target: target
+sensitive_attributes: [gender, family_status]
+
+# Features usadas pelo modelo (minimização: nada além do necessário)
+features:
+  numeric:
+    - age_years
+    - income
+    - credit_amount
+    - annuity
+    - goods_price
+    - employment_years
+    - has_employment
+    - ext_source_2
+    - ext_source_3
+    - children_count
+    - region_rating
+    - debt_to_income      # derivada: annuity / income
+    - credit_to_income    # derivada: credit_amount / income
+  categorical:
+    - contract_type
+    - income_type
+    - education
+    - own_realty
