@@ -1,0 +1,7 @@
+# Premissas econômicas para limiar de decisão e perda esperada.
+# Valores ilustrativos — devem ser validados com Risco/Finanças.
+lgd: 0.45                 # Loss Given Default: fração do crédito perdida no default
+margin: 0.10              # margem líquida perdida ao recusar um bom pagador
+# Custos relativos por decisão errada (proporcionais ao valor do crédito):
+#   C_FN (aprovar inadimplente) = lgd
+#   C_FP (recusar bom pagador)  = margin
