@@ -1,0 +1,32 @@
+# Cenário de degradação simulada: 6 janelas mensais de produção.
+# A intensidade cresce linearmente: t = k / n_windows (k = 1..6).
+seed: 2026
+n_windows: 6
+window_size: 15000
+start_month: "2026-01"
+
+# Data drift (covariate shift) por reamostragem ponderada da carteira de produção.
+# Reamostrar mantém P(Y|X) intacto -> é drift de população "puro".
+# peso_i = exp(t * sum_j(coef_j * z_ij)), z = valor padronizado pela referência.
+covariate_shift:
+  income: -0.8            # inflação corrói renda real: entram clientes de renda menor
+  debt_to_income: 0.7     # comprometimento de renda maior (parcelas mais caras)
+  age_years: -0.6         # novo canal digital: clientes mais jovens
+
+# Drift multivariado: parte da carteira passa a ter crédito desacoplado da renda
+# (limites automáticos do canal digital). Marginais quase iguais, relação muda.
+multivariate:
+  decouple_credit_from_income_max_fraction: 0.35
+
+# Concept drift: P(default | X) sobe no segmento vulnerável, mesmo com X igual.
+concept_drift:
+  segment:
+    debt_to_income_quantile_gte: 0.75   # quantis calculados na referência
+    income_quantile_lte: 0.50
+  max_flip_probability: 0.20            # fração de bons pagadores que viram inadimplentes (t=1)
+
+# Variáveis de controle: não são alteradas (prova de que o detector não dispara à toa)
+controls: [children_count, region_rating]
+
+# Atraso de rótulo: a inadimplência de uma janela só é conhecida após N janelas
+label_delay_windows: 1
