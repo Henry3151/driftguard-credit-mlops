@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install ruff==0.17.2
+      - run: ruff check src tests
+
+  tests:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11", cache: pip}
+      - run: pip install -r requirements-dev.txt && pip install -e .
+      - name: Testes unitários, de contrato, privacidade e simulação
+        run: pytest -m "not e2e"
+
+  core-clean-env:
+    # Prova de que o caminho principal NÃO depende dos componentes opcionais (ADR-0001)
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11", cache: pip}
+      - run: pip install -r requirements-dev.txt && pip install -e .
+      - name: Pipeline ponta a ponta com dados sintéticos
+        run: pytest -m e2e
+      - name: Lote defeituoso precisa ser bloqueado (exit code 2)
+        run: |
+          set +e
+          python -m driftguard bad-batch
+          code=$?
+          test "$code" -eq 2
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: demo-reports
+          path: reports/
+
+  optional-smoke:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11", cache: pip}
+      - run: pip install -r requirements-dev.txt && pip install -e ".[extras]"
+      - name: OpenTelemetry habilitado não pode quebrar o pipeline
+        env: {DRIFTGUARD_OTEL_ENABLED: "true"}
+        run: python -m driftguard bad-batch || test $? -eq 2
+      - name: Sintaxe do DAG do Airflow
+        run: python -m py_compile orchestration/airflow/dags/credit_risk_monitoring.py
+
+  commitlint:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: wagoid/commitlint-github-action@v6
