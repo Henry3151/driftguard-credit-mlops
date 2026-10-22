@@ -1,0 +1,155 @@
+# Data Contract — Proposta de Crédito (schema canônico)
+# Formato: Data Contract Specification (https://datacontract.com)
+# Fonte da verdade: o schema Pandera é GERADO a partir deste arquivo (ADR-0003).
+dataContractSpecification: 1.1.0
+id: urn:datacontract:credit-risk:credit-application
+info:
+  title: Proposta de Crédito — Credit Scoring
+  version: 1.0.0
+  status: active
+  description: >
+    Registro de proposta de crédito consumido pelo modelo de Credit Scoring.
+    Regras "blocker" impedem a ingestão; regras "warning" são registradas e alertadas.
+  owner: Time de Dados de Crédito
+  contact:
+    name: Engenharia de ML — Crédito
+    email: ml-credito@empresa.exemplo
+
+terms:
+  usage: Exclusivo para análise de risco de crédito e monitoramento do modelo de scoring.
+  limitations: Vedado o uso para marketing, perfilamento comercial ou finalidades incompatíveis (LGPD art. 6º, I).
+  noticePeriod: P30D          # aviso mínimo para mudanças que quebram o contrato
+  compatibility: backward     # consumidor atualiza primeiro; mudança que quebra => v2
+
+servicelevels:
+  freshness:
+    description: Lote disponível em até 12h após o fechamento da janela.
+    threshold: 12h
+  completeness:
+    description: Campos obrigatórios 100% preenchidos.
+    threshold: "100%"
+  volume:
+    description: Lote com no mínimo 1.000 propostas.
+    threshold: 1000
+
+models:
+  credit_application:
+    type: table
+    description: Uma linha por proposta de crédito.
+    fields:
+      customer_id:
+        type: string
+        required: true
+        unique: true
+        pii: true
+        classification: identificador-direto
+        description: Identificador do cliente (pseudonimizado após o Gate 1).
+      target:
+        type: integer
+        required: false          # obrigatório apenas em lotes rotulados
+        enum: [0, 1]
+        description: 1 = inadimplente.
+      age_years:
+        type: number
+        required: true
+        minimum: 18
+        maximum: 100
+        description: Idade em anos (proponente deve ser maior de idade).
+      income:
+        type: number
+        required: true
+        exclusiveMinimum: 0
+        maximum: 100000000
+        description: Renda total declarada. Nula ou não positiva bloqueia (ausência tende a ser MNAR).
+      credit_amount:
+        type: number
+        required: true
+        exclusiveMinimum: 0
+        maximum: 10000000
+      annuity:
+        type: number
+        required: true
+        exclusiveMinimum: 0
+        description: Valor da parcela.
+      goods_price:
+        type: number
+        required: false
+        exclusiveMinimum: 0
+      employment_years:
+        type: number
+        required: true
+        minimum: 0
+        maximum: 60
+      has_employment:
+        type: integer
+        required: true
+        enum: [0, 1]
+      ext_source_2:
+        type: number
+        required: false
+        minimum: 0
+        maximum: 1
+        description: Score externo de bureau (nulo é informativo — tratado nativamente pelo modelo).
+      ext_source_3:
+        type: number
+        required: false
+        minimum: 0
+        maximum: 1
+      children_count:
+        type: integer
+        required: true
+        minimum: 0
+        maximum: 20
+      region_rating:
+        type: integer
+        required: true
+        enum: [1, 2, 3]
+      contract_type:
+        type: string
+        required: true
+        enum: ["Cash loans", "Revolving loans"]
+      income_type:
+        type: string
+        required: true
+        enum: ["Working", "Commercial associate", "Pensioner", "State servant",
+               "Unemployed", "Student", "Businessman", "Maternity leave"]
+      education:
+        type: string
+        required: true
+        enum: ["Secondary / secondary special", "Higher education", "Incomplete higher",
+               "Lower secondary", "Academic degree"]
+      own_realty:
+        type: string
+        required: true
+        enum: ["Y", "N"]
+      gender:
+        type: string
+        required: false
+        pii: true
+        classification: sensivel-auditoria
+        enum: ["F", "M", "XNA"]
+        description: Usado SOMENTE para auditoria de vieses; nunca como feature (ADR-0008).
+      family_status:
+        type: string
+        required: false
+        pii: true
+        classification: sensivel-auditoria
+        enum: ["Married", "Single / not married", "Civil marriage", "Separated", "Widow", "Unknown"]
+
+    # Regras de lote (não ligadas a um único campo)
+    quality:
+      - id: strict_schema
+        severity: blocker
+        description: Colunas obrigatórias presentes, tipos corretos e nenhuma coluna desconhecida.
+      - id: min_batch_rows
+        severity: blocker
+        description: Volume mínimo do lote (servicelevels.volume).
+      - id: annuity_le_credit
+        severity: warning
+        description: Consistência — parcela não pode exceder o valor do crédito.
+      - id: optional_null_rate
+        severity: warning
+        description: Nulos em campos opcionais acima do limite configurado.
+      - id: income_mean_shift
+        severity: warning
+        description: Média de renda fora de ±30% da referência (sinal precoce de drift).

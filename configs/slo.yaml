@@ -1,0 +1,35 @@
+# Limiares de qualidade, drift e SLOs operacionais.
+# Documentação de cada métrica: docs/METRICS.md
+quality:
+  circuit_breaker_max_invalid_fraction: 0.05   # acima disso o LOTE INTEIRO é bloqueado
+  min_batch_rows: 1000
+  warning_max_null_fraction_optional: 0.25     # nulos em campos opcionais
+  warning_income_mean_tolerance: 0.30          # ±30% da média de referência
+  dq_score_slo: 95.0
+
+drift:
+  psi_moderate: 0.10
+  psi_severe: 0.25
+  psi_bins: 10
+  ks_alpha: 0.05             # após correção Benjamini-Hochberg
+  ks_min_effect: 0.10        # estatística D mínima (evita falso positivo em n grande)
+  mmd_alpha: 0.05
+  mmd_sample_size: 1000
+  mmd_permutations: 200
+  important_feature_share: 0.05   # importância mínima para a feature ser "importante"
+
+model:
+  auc_max_drop: 0.03          # SLO: AUC >= baseline - 3 p.p.
+  brier_max_ratio: 1.15       # SLO: Brier <= baseline * 1.15
+  fairness_min_disparate_impact: 0.80   # regra dos 4/5 (aplicada a atributos protegidos)
+  fairness_protected_attributes: [gender]  # atributos protegidos: fora do modelo e com guardrail de bloqueio
+  fairness_monitored_attributes: [age_band] # idade é fator de risco legítimo em crédito: monitorada, sem bloqueio
+  fairness_max_equal_opportunity_gap: 0.15
+  min_group_size: 30
+
+infra:
+  prediction_latency_p95_ms_per_1k: 250
+  max_memory_mb: 4096
+
+pipeline:
+  stage_success_rate_slo: 0.99
