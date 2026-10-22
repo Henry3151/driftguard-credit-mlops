@@ -1,0 +1,24 @@
+# Regras equivalentes ao motor de alertas do pipeline (configs/slo.yaml)
+groups:
+  - name: credit-risk-monitoring
+    rules:
+      - alert: IngestionBlocked
+        expr: increase(driftguard_batches_blocked_total[1h]) > 0
+        labels: {severity: critical, priority: P1, route: engenharia-de-dados}
+        annotations: {summary: "Lote bloqueado pelo contrato de dados", runbook: "docs/RUNBOOK.md#data-quality"}
+      - alert: SevereFeatureDrift
+        expr: max by (window) (driftguard_feature_psi) >= 0.25
+        labels: {severity: warning, priority: P2, route: ml-engineering}
+        annotations: {summary: "PSI severo em ao menos uma feature", runbook: "docs/RUNBOOK.md#data-drift"}
+      - alert: ModelAucBelowSlo
+        expr: min by (window) (driftguard_model_auc) < 0.71
+        labels: {severity: critical, priority: P1, route: ml-engineering}
+        annotations: {summary: "AUC abaixo do SLO (concept drift)", runbook: "docs/RUNBOOK.md#concept-drift"}
+      - alert: DataQualityScoreLow
+        expr: min(driftguard_data_quality_score) < 95
+        labels: {severity: warning, priority: P2, route: engenharia-de-dados}
+        annotations: {summary: "Data Quality Score abaixo do SLO", runbook: "docs/RUNBOOK.md#data-quality"}
+      - alert: PipelineStageFailed
+        expr: min(driftguard_stage_status) == 0
+        labels: {severity: critical, priority: P1, route: engenharia-de-dados}
+        annotations: {summary: "Estágio do pipeline falhou", runbook: "docs/RUNBOOK.md#pipeline-failure"}

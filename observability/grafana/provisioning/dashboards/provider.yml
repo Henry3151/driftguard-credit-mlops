@@ -1,0 +1,7 @@
+apiVersion: 1
+providers:
+  - name: driftguard
+    folder: Credit Scoring
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards
