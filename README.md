@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
 
 # DriftGuard — Credit MLOps Monitoring
 
@@ -274,7 +274,7 @@ Quando a política chega a **severa**, o DriftGuard avalia quatro respostas no m
 | AUC global melhor | ✅ 0,624 → 0,701 |
 | Segmento crítico não pior | ✅ 0,579 → 0,596 |
 | Regra dos 4/5 no atributo protegido (gênero) | ✅ 0,976 |
-| Calibração (Brier) melhor | ✅ |
+| Calibração (Brier) melhor | ✅ 0,164 → 0,151 |
 | Custo esperado menor | ✅ −25% |
 
 **Decisão:** challenger **promovido** a `champion` no MLflow Model Registry.
