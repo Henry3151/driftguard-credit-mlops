@@ -1,0 +1,5 @@
+opcao,tipo,auc,ks,brier,default_rate,mean_pd,approval_rate,recall_default,bad_rate_approved,expected_loss,realized_loss,expected_cost,auc_segmento,min_disparate_impact,di_faixa_etaria_monitorada
+1. Nenhuma ação (champion),baseline,0.6243,0.1859,0.16356,0.1977,0.0822,0.9178,0.1581,0.1814,272306484.25,745943908.05,784645895.25,0.579,0.9633,0.8544
+2. Recalibrar limiar (0.22 → 0.1),moderada,0.6243,0.1859,0.16356,0.1977,0.3331,0.6669,0.4781,0.1547,138381739.09,489601183.05,677498724.45,0.579,0.8669,0.4724
+3. Regra temporária no segmento (PD < 0.11),severa-imediata,0.6243,0.1859,0.16356,0.1977,0.1968,0.8032,0.3537,0.1591,199260117.73,577971883.35,686880214.2,0.579,0.9756,0.7205
+4. Retreino challenger (limiar 0.13),severa-estrutural,0.7006,0.2807,0.1509,0.1977,0.3981,0.6019,0.615,0.1265,176715903.35,341740055.02,591978887.33,0.5958,0.9762,0.4808

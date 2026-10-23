@@ -1,0 +1,30 @@
+{
+  "annuity": {
+    "null_rate": 0.0,
+    "default_rate_when_null": 0.0,
+    "default_rate_when_present": 0.0807,
+    "chi2_p_value": 0.6193804657777016,
+    "diagnostico": "compatível com MCAR"
+  },
+  "goods_price": {
+    "null_rate": 0.0009,
+    "default_rate_when_null": 0.0755,
+    "default_rate_when_present": 0.0807,
+    "chi2_p_value": 0.8355251025655114,
+    "diagnostico": "compatível com MCAR"
+  },
+  "ext_source_2": {
+    "null_rate": 0.0021,
+    "default_rate_when_null": 0.0788,
+    "default_rate_when_present": 0.0807,
+    "chi2_p_value": 0.911047427710317,
+    "diagnostico": "compatível com MCAR"
+  },
+  "ext_source_3": {
+    "null_rate": 0.1983,
+    "default_rate_when_null": 0.0931,
+    "default_rate_when_present": 0.0777,
+    "chi2_p_value": 4.8894679928311235e-36,
+    "diagnostico": "não-MCAR (ausência informativa)"
+  }
+}

@@ -1,0 +1,13 @@
+window,attribute,disparate_impact,equal_opportunity_gap,auc_gap,least_approved_group
+window_01,gender,0.9815,0.0097,0.0271,M
+window_01,age_band,0.8921,0.0884,0.0737,26-35
+window_02,gender,0.9728,0.0216,0.0115,M
+window_02,age_band,0.885,0.0893,0.0785,26-35
+window_03,gender,0.9719,0.0212,0.0237,M
+window_03,age_band,0.8702,0.1027,0.1042,18-25
+window_04,gender,0.9773,0.0153,0.0389,M
+window_04,age_band,0.8726,0.105,0.0788,18-25
+window_05,gender,0.971,0.0168,0.0269,M
+window_05,age_band,0.8819,0.0897,0.0718,18-25
+window_06,gender,0.9633,0.0275,0.04,M
+window_06,age_band,0.8544,0.1093,0.0678,18-25

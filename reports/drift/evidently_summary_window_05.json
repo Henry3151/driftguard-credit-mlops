@@ -1,0 +1,133 @@
+{
+  "columns": {
+    "age_years": {
+      "method": "psi",
+      "score": 0.08675941064448707,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "income": {
+      "method": "psi",
+      "score": 0.23873875533759426,
+      "threshold": 0.1,
+      "drift_detected": "True"
+    },
+    "credit_amount": {
+      "method": "psi",
+      "score": 0.011343524900914335,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "annuity": {
+      "method": "psi",
+      "score": 0.014069064182089886,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "goods_price": {
+      "method": "psi",
+      "score": 0.010462673701592616,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "employment_years": {
+      "method": "psi",
+      "score": 0.013379448948584009,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "has_employment": {
+      "method": "psi",
+      "score": 0.004792245932719845,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "ext_source_2": {
+      "method": "psi",
+      "score": 0.025912708700222078,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "ext_source_3": {
+      "method": "psi",
+      "score": 0.004990937852868199,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "children_count": {
+      "method": "psi",
+      "score": 0.019110830672934835,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "region_rating": {
+      "method": "psi",
+      "score": 0.03364501406884687,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "debt_to_income": {
+      "method": "psi",
+      "score": 0.5402810078761121,
+      "threshold": 0.1,
+      "drift_detected": "True"
+    },
+    "credit_to_income": {
+      "method": "psi",
+      "score": 0.2937926019838595,
+      "threshold": 0.1,
+      "drift_detected": "True"
+    },
+    "contract_type": {
+      "method": "psi",
+      "score": 0.010593389185332935,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "income_type": {
+      "method": "psi",
+      "score": 0.01710407297166362,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "education": {
+      "method": "psi",
+      "score": 0.009828531985046865,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "own_realty": {
+      "method": "psi",
+      "score": 0.005068583290459082,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "score": {
+      "method": "psi",
+      "score": 0.031976235289825745,
+      "threshold": 0.1,
+      "drift_detected": "False"
+    },
+    "_classification": {
+      "Accuracy": 0.8326,
+      "Precision": 0.5454545454545454,
+      "Recall": 0.009542743538767396,
+      "RocAuc": 0.6498594655534952,
+      "LogLoss": 0.46651735895269053,
+      "PrecisionByLabel": {
+        "0": 0.8334447713292324,
+        "1": 0.5454545454545454
+      },
+      "RecallByLabel": {
+        "0": 0.9983980776932319,
+        "1": 0.009542743538767396
+      },
+      "RocAucByLabel": {
+        "0": 0.6498594655534952,
+        "1": 0.6498594655534952
+      }
+    }
+  },
+  "drifted_share": 0.16666666666666666,
+  "drifted_count": 3.0
+}

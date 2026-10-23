@@ -1,0 +1,22 @@
+{
+  "gate": "gate2_features",
+  "batch": "window_02",
+  "contract": "urn:datacontract:credit-risk:credit-application@1.0.0",
+  "n_rows": 15000,
+  "n_invalid_rows": 0,
+  "invalid_fraction": 0.0,
+  "decision": "accepted",
+  "blocked_reason": null,
+  "rule_failures": {},
+  "warnings": [],
+  "dq_score": 99.71,
+  "dq_dimensions": {
+    "completude": 98.54,
+    "unicidade": 100.0,
+    "validade": 100.0,
+    "consistencia": 100.0,
+    "acuracia": 100.0,
+    "atualidade": 100.0
+  },
+  "quarantine_path": null
+}

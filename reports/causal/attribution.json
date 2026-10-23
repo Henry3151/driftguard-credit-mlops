@@ -1,0 +1,174 @@
+{
+  "per_window": [
+    {
+      "window": "window_01",
+      "month": "2026-01",
+      "auc_baseline": 0.7397,
+      "auc_contrafactual_sem_concept": 0.7455,
+      "auc_real": 0.7288,
+      "efeito_covariate_shift_auc": 0.0058,
+      "efeito_concept_drift_auc": -0.0166,
+      "default_rate_baseline": 0.0807,
+      "default_rate_mudanca_populacao": 0.082,
+      "default_rate_real": 0.0891,
+      "pd_media_prevista": 0.084,
+      "subestimacao_risco_pp": 0.51
+    },
+    {
+      "window": "window_02",
+      "month": "2026-02",
+      "auc_baseline": 0.7397,
+      "auc_contrafactual_sem_concept": 0.7382,
+      "auc_real": 0.7041,
+      "efeito_covariate_shift_auc": -0.0015,
+      "efeito_concept_drift_auc": -0.0341,
+      "default_rate_baseline": 0.0807,
+      "default_rate_mudanca_populacao": 0.085,
+      "default_rate_real": 0.1021,
+      "pd_media_prevista": 0.087,
+      "subestimacao_risco_pp": 1.51
+    },
+    {
+      "window": "window_03",
+      "month": "2026-03",
+      "auc_baseline": 0.7397,
+      "auc_contrafactual_sem_concept": 0.7395,
+      "auc_real": 0.6882,
+      "efeito_covariate_shift_auc": -0.0002,
+      "efeito_concept_drift_auc": -0.0513,
+      "default_rate_baseline": 0.0807,
+      "default_rate_mudanca_populacao": 0.0973,
+      "default_rate_real": 0.1286,
+      "pd_media_prevista": 0.09,
+      "subestimacao_risco_pp": 3.86
+    },
+    {
+      "window": "window_04",
+      "month": "2026-04",
+      "auc_baseline": 0.7397,
+      "auc_contrafactual_sem_concept": 0.738,
+      "auc_real": 0.6628,
+      "efeito_covariate_shift_auc": -0.0017,
+      "efeito_concept_drift_auc": -0.0752,
+      "default_rate_baseline": 0.0807,
+      "default_rate_mudanca_populacao": 0.0958,
+      "default_rate_real": 0.1471,
+      "pd_media_prevista": 0.0916,
+      "subestimacao_risco_pp": 5.55
+    },
+    {
+      "window": "window_05",
+      "month": "2026-05",
+      "auc_baseline": 0.7397,
+      "auc_contrafactual_sem_concept": 0.7282,
+      "auc_real": 0.6499,
+      "efeito_covariate_shift_auc": -0.0115,
+      "efeito_concept_drift_auc": -0.0784,
+      "default_rate_baseline": 0.0807,
+      "default_rate_mudanca_populacao": 0.0963,
+      "default_rate_real": 0.1677,
+      "pd_media_prevista": 0.0941,
+      "subestimacao_risco_pp": 7.35
+    },
+    {
+      "window": "window_06",
+      "month": "2026-06",
+      "auc_baseline": 0.7397,
+      "auc_contrafactual_sem_concept": 0.7197,
+      "auc_real": 0.6243,
+      "efeito_covariate_shift_auc": -0.02,
+      "efeito_concept_drift_auc": -0.0954,
+      "default_rate_baseline": 0.0807,
+      "default_rate_mudanca_populacao": 0.0999,
+      "default_rate_real": 0.1977,
+      "pd_media_prevista": 0.0952,
+      "subestimacao_risco_pp": 10.26
+    }
+  ],
+  "ablation_last_window": [
+    {
+      "feature": "age_years",
+      "delta_pd_media_pp": 0.177,
+      "share_mudanca_pd": 0.128,
+      "delta_aprovacao_pp": -0.26,
+      "share_mudanca_aprovacao": 0.106
+    },
+    {
+      "feature": "annuity",
+      "delta_pd_media_pp": 0.162,
+      "share_mudanca_pd": 0.117,
+      "delta_aprovacao_pp": -0.447,
+      "share_mudanca_aprovacao": 0.182
+    },
+    {
+      "feature": "income",
+      "delta_pd_media_pp": 0.135,
+      "share_mudanca_pd": 0.097,
+      "delta_aprovacao_pp": -0.42,
+      "share_mudanca_aprovacao": 0.171
+    },
+    {
+      "feature": "credit_amount",
+      "delta_pd_media_pp": 0.06,
+      "share_mudanca_pd": 0.043,
+      "delta_aprovacao_pp": -0.187,
+      "share_mudanca_aprovacao": 0.076
+    }
+  ],
+  "ablation_totals": {
+    "total_delta_pd_pp": 1.384,
+    "total_delta_aprovacao_pp": -2.45
+  },
+  "segment_effect_last_window": {
+    "segmento_vulneravel": {
+      "n": 7986,
+      "default_real": 0.2864,
+      "default_sem_concept": 0.1026,
+      "pd_prevista": 0.0989
+    },
+    "demais_clientes": {
+      "n": 7014,
+      "default_real": 0.0968,
+      "default_sem_concept": 0.0968,
+      "pd_prevista": 0.0909
+    }
+  },
+  "detection_vs_injection": [
+    {
+      "feature": "income",
+      "mecanismo_injetado": "covariate (reamostragem)",
+      "psi": 0.71421,
+      "drift_detectado": true
+    },
+    {
+      "feature": "debt_to_income",
+      "mecanismo_injetado": "covariate (reamostragem)",
+      "psi": 0.63832,
+      "drift_detectado": true
+    },
+    {
+      "feature": "age_years",
+      "mecanismo_injetado": "covariate (reamostragem)",
+      "psi": 0.10798,
+      "drift_detectado": true
+    },
+    {
+      "feature": "credit_to_income",
+      "mecanismo_injetado": "multivariado (desacoplamento)",
+      "psi": 0.3331,
+      "drift_detectado": true
+    },
+    {
+      "feature": "children_count",
+      "mecanismo_injetado": "controle (não alterada)",
+      "psi": 0.01918,
+      "drift_detectado": false
+    },
+    {
+      "feature": "region_rating",
+      "mecanismo_injetado": "controle (não alterada)",
+      "psi": 0.04662,
+      "drift_detectado": false
+    }
+  ]
+}

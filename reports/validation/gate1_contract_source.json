@@ -1,0 +1,25 @@
+{
+  "gate": "gate1_contract",
+  "batch": "source",
+  "contract": "urn:datacontract:credit-risk:credit-application@1.0.0",
+  "n_rows": 307511,
+  "n_invalid_rows": 13,
+  "invalid_fraction": 4.2e-05,
+  "decision": "accepted_with_quarantine",
+  "blocked_reason": null,
+  "rule_failures": {
+    "annuity::not_nullable": 12,
+    "income::less_than_or_equal_to(100000000)": 1
+  },
+  "warnings": [],
+  "dq_score": 99.84,
+  "dq_dimensions": {
+    "completude": 99.19,
+    "unicidade": 100.0,
+    "validade": 100.0,
+    "consistencia": 100.0,
+    "acuracia": 99.98,
+    "atualidade": 100.0
+  },
+  "quarantine_path": "data/quarantine/20261023T015952-840480_gate1_contract_source"
+}

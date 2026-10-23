@@ -1,0 +1,8 @@
+{
+  "change_points": 2,
+  "first_change_after_reference": "window_02",
+  "detections_by_segment": {
+    "window_02": 1,
+    "window_05": 1
+  }
+}

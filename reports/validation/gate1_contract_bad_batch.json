@@ -1,0 +1,30 @@
+{
+  "gate": "gate1_contract",
+  "batch": "bad_batch",
+  "contract": "urn:datacontract:credit-risk:credit-application@1.0.0",
+  "n_rows": 2000,
+  "n_invalid_rows": 290,
+  "invalid_fraction": 0.145,
+  "decision": "blocked",
+  "blocked_reason": "violação estrutural: credit_application@1.0.0::column_in_schema | circuit breaker: 14.5% de linhas inválidas > 5%",
+  "rule_failures": {
+    "customer_id::field_uniqueness": 80,
+    "age_years::greater_than_or_equal_to(18)": 60,
+    "income::not_nullable": 60,
+    "contract_type::isin(['Cash loans', 'Revolving loans'])": 40,
+    "income::greater_than(0)": 30,
+    "ext_source_2::less_than_or_equal_to(1)": 20,
+    "credit_application@1.0.0::column_in_schema": 1
+  },
+  "warnings": [],
+  "dq_score": 95.14,
+  "dq_dimensions": {
+    "completude": 98.96,
+    "unicidade": 98.0,
+    "validade": 85.5,
+    "consistencia": 100.0,
+    "acuracia": 100.0,
+    "atualidade": 100.0
+  },
+  "quarantine_path": "data/quarantine/20261023T015952-840480_gate1_contract_bad_batch"
+}
