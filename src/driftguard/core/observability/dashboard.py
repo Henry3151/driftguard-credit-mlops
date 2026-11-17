@@ -21,7 +21,6 @@ from plotly.subplots import make_subplots
 from driftguard.core.observability.alerts import read_alerts
 from driftguard.core.observability.logging import read_events
 
-
 C = {
     "ok": "#1a7f37",
     "warn": "#b7791f",
